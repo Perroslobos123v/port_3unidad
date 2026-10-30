@@ -7,7 +7,7 @@
 */
 window.PORTFOLIO_CONFIG = {
   owner: "Perroslobos123v",
-  repo: "portf-3unidad",
-  branch: "main",
+  repo: "port_3unidad",
+  branch: "principal",
   contentFolder: "contenido"
 };
