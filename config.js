@@ -8,6 +8,6 @@
 window.PORTFOLIO_CONFIG = {
   owner: "Perroslobos123v",
   repo: "port_3unidad",
-  branch: "principal",
+  branch: "main",
   contentFolder: "contenido"
 };
