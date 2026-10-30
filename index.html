@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b1b">
+  <meta name="description" content="Portafolio de Base de Datos 2 · Universidad Peruana Los Andes · Ramos Zamora Michael Deyvis.">
+  <title>Portafolio Digital | Ramos Zamora Michael Deyvis</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="starfield" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <img class="brand-logo" src="assets/upla-icono.png" alt="Logo UPLA" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="brand-mark" hidden>UPLA</span><span>MI <b>UNIVERSO</b></span>
+    </a>
+    <nav class="main-nav">
+      <a class="nav-link active" href="#inicio" data-nav="inicio">Inicio</a>
+      <a class="nav-link" href="#unidades" data-nav="unidades">Unidades</a>
+      <a class="nav-link" href="#tecnologias" data-nav="tecnologias">Azure y SQL</a>
+      <a class="nav-link" href="#perfil" data-nav="perfil">Mi perfil</a>
+    </nav>
+    <button class="admin-button" id="adminButton"><span>⌑</span> Administración</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+  </header>
+
+  <main>
+    <section class="hero section" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> PORTAFOLIO DIGITAL · INGENIERÍA DE SISTEMAS</div>
+        <h1>Explora mi<br><span>universo</span> académico.</h1>
+        <p class="hero-lead">Un espacio donde cada semana representa un nuevo descubrimiento, cada proyecto una órbita y cada aprendizaje una estrella.</p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#unidades">Explorar unidades <span>↗</span></a>
+          <a class="text-button" href="#perfil">Conocer mi perfil <span>→</span></a>
+        </div>
+        <div class="hero-id">
+          <div class="uni"><img class="hero-logo" src="assets/upla-logo.png" alt="Logo de la Universidad Peruana Los Andes" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="logo-fallback" hidden>UPLA</span></div>
+          <div><b>RAMOS ZAMORA MICHAEL DEYVIS</b><span>Universidad Peruana Los Andes · Ingeniería de Sistemas</span><span>Curso: <em>Base de Datos 2</em></span><span>Docente: Ing. Raúl Enrique Fernández Bejarano</span></div>
+        </div>
+        <div class="hero-stats">
+          <div><strong>04</strong><span>Unidades</span></div>
+          <i></i>
+          <div><strong>16</strong><span>Semanas</span></div>
+          <i></i>
+          <div><strong>∞</strong><span>Aprendizajes</span></div>
+        </div>
+      </div>
+      <div class="cosmos-art" aria-label="Ilustración de un planeta y un agujero negro">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="planet planet-large"></div><div class="planet planet-small"></div>
+        <div class="black-hole"><div class="hole-ring"></div><div class="hole-core"></div></div>
+        <span class="cosmos-label label-a">SISTEMAS · DATOS</span>
+        <span class="cosmos-label label-b">EXPLORANDO IDEAS</span>
+        <span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">✦</span>
+      </div>
+      <a class="scroll-hint" href="#unidades"><span></span> DESLIZA PARA EXPLORAR</a>
+    </section>
+
+    <section class="section units-section" id="unidades">
+      <div class="section-heading">
+        <div><div class="eyebrow">MAPA DE APRENDIZAJE</div><h2>Mis <span>unidades</span></h2></div>
+        <p>Cuatro capítulos de conocimiento.<br>Dieciséis semanas por descubrir.</p>
+      </div>
+      <div class="unit-grid" id="unitGrid"></div>
+    </section>
+
+    <section class="section tech-section" id="tecnologias">
+      <div class="section-heading">
+        <div><div class="eyebrow">HERRAMIENTAS DEL CURSO</div><h2>Azure y <span>SQL Server</span></h2></div>
+        <p>Dos tecnologías de Microsoft que se usan juntas en mis prácticas de bases de datos.</p>
+      </div>
+      <div class="tech-grid">
+        <article class="tech-card azure">
+          <div class="tech-badge">☁</div>
+          <h3>Microsoft Azure</h3>
+          <p class="tech-def">Es la plataforma de <b>computación en la nube</b> de Microsoft. En lugar de comprar y mantener servidores propios, se alquilan recursos por internet y se paga solo por lo que se usa.</p>
+          <h4>¿Para qué sirve?</h4>
+          <ul>
+            <li>Crear servidores y máquinas virtuales en minutos.</li>
+            <li>Alojar sitios web y aplicaciones con alta disponibilidad.</li>
+            <li>Almacenar archivos y respaldos de forma segura.</li>
+            <li>Ofrecer bases de datos administradas, como Azure SQL Database.</li>
+            <li>Crecer o reducir recursos según la demanda.</li>
+          </ul>
+        </article>
+        <article class="tech-card sqls">
+          <div class="tech-badge">▤</div>
+          <h3>SQL Server</h3>
+          <p class="tech-def">Es el <b>sistema gestor de bases de datos relacionales</b> de Microsoft. Guarda la información en tablas relacionadas entre sí y se maneja con el lenguaje T-SQL.</p>
+          <h4>¿Para qué sirve?</h4>
+          <ul>
+            <li>Crear bases de datos, tablas, esquemas y grupos de archivos.</li>
+            <li>Insertar, consultar, actualizar y eliminar datos con SQL.</li>
+            <li>Garantizar integridad con claves primarias y foráneas.</li>
+            <li>Controlar usuarios, permisos y copias de seguridad.</li>
+            <li>Generar reportes y analizar datos de una organización.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="tech-link">
+        <span><b>SQL Server</b> guarda y organiza los datos.</span>
+        <i>+</i>
+        <span><b>Azure</b> lo ejecuta en la nube, sin servidor físico.</span>
+        <i>=</i>
+        <span>Bases de datos accesibles, seguras y escalables.</span>
+      </div>
+    <div class="learn-grid">
+        <article class="learn-card" style="--c:#79e2e8">
+          <h3>Unidad 1 · Fundamentos de bases de datos</h3>
+          <ul>
+            <li><b>Manual de SQL:</b> sentencias básicas para crear y consultar bases de datos.</li>
+            <li><b>Diagramas:</b> modelado entidad-relación de Grados y Títulos, Cadena Editorial y Empresa de Material Informático.</li>
+            <li><b>Scripts SQL:</b> creación de tablas e inserción de 10 datos de prueba en cada caso.</li>
+          </ul>
+        </article>
+        <article class="learn-card" style="--c:#ad9aff">
+          <h3>Unidad 2 · SQL Server en Azure</h3>
+          <ul>
+            <li><b>Configuración:</b> creación y conexión del servidor y la base de datos Grados y Títulos en Azure.</li>
+            <li><b>Almacenamiento:</b> esquemas, grupos de archivos (filegroups) y archivos lógicos de datos y de registro.</li>
+            <li><b>Evidencias:</b> guías de laboratorio, infografías, casos e informes.</li>
+          </ul>
+        </article>
+        <article class="learn-card soon" style="--c:#f0a9ce">
+          <h3>Unidades 3 y 4</h3>
+          <p>En construcción: aquí se sumarán las nuevas prácticas y el proyecto de integración del curso.</p>
+        </article>
+      </div>
+      <h3 class="glossary-title">Conceptos clave del curso</h3>
+      <div class="glossary">
+        <div><b>Base de datos</b><span>Conjunto organizado de información almacenada para consultarla y actualizarla fácilmente.</span></div>
+        <div><b>Clave primaria y foránea</b><span>La primaria identifica cada fila; la foránea relaciona una tabla con otra.</span></div>
+        <div><b>T-SQL</b><span>Lenguaje de SQL Server: DDL para crear estructuras y DML para manejar los datos.</span></div>
+        <div><b>Modelo entidad-relación</b><span>Diagrama que muestra las entidades, sus atributos y cómo se relacionan.</span></div>
+        <div><b>Filegroup</b><span>Grupo de archivos que organiza dónde se guardan físicamente las tablas.</span></div>
+        <div><b>Archivos .mdf, .ndf y .ldf</b><span>Datos principal y secundarios (.mdf, .ndf) y registro de transacciones (.ldf).</span></div>
+        <div><b>Esquema</b><span>Contenedor lógico que agrupa y ordena los objetos de la base de datos.</span></div>
+        <div><b>Servidor lógico en Azure</b><span>Punto de administración de las bases de datos de Azure SQL, con su firewall y accesos.</span></div>
+      </div>
+    </section>
+
+    <section class="section profile-section" id="perfil">
+      <div class="profile-orb"><img class="profile-photo" src="assets/foto-perfil.jpg" alt="Foto de Ramos Zamora Michael Deyvis" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="profile-initials" hidden>MR</div><span class="profile-star">✦</span></div>
+      <div class="profile-copy">
+        <div class="eyebrow">UN POCO SOBRE MÍ</div>
+        <h2>Hola, soy <span>Michael.</span></h2>
+        <p class="full-name">RAMOS ZAMORA MICHAEL DEYVIS</p>
+        <p>Estudiante de Ingeniería de Sistemas. Este portafolio reúne mis actividades, prácticas, evidencias y proyectos desarrollados durante el curso.</p>
+        <div class="profile-tags"><span>Ingeniería de Sistemas</span><span>Aprendizaje continuo</span><span>Desarrollo</span><span>Base de Datos 2</span><span>UPLA</span></div>
+        <p class="course-line">Curso <b>Base de Datos 2</b> · Universidad Peruana Los Andes<br>Docente: <b>Ing. Raúl Enrique Fernández Bejarano</b></p>
+      </div>
+    </section>
+  </main>
+
+  <footer><span class="foot-brand"><img src="assets/upla-icono.png" alt="" aria-hidden="true">✦ MI UNIVERSO ACADÉMICO · RAMOS ZAMORA MICHAEL DEYVIS</span><span>Construido con curiosidad y constancia.</span></footer>
+
+  <div class="modal-backdrop hidden" id="weekModal">
+    <section class="modal week-modal" role="dialog" aria-modal="true" aria-labelledby="weekTitle">
+      <button class="modal-close" data-close="weekModal" aria-label="Cerrar">×</button>
+      <div class="eyebrow" id="weekKicker">UNIDAD 1</div>
+      <h2 id="weekTitle">Semana 1</h2>
+      <p class="modal-description">Archivos y evidencias de esta semana.</p>
+      <div class="file-toolbar">
+        <span id="fileCount">0 archivos</span>
+        <label class="upload-button admin-only hidden" for="fileInput">＋ Subir archivos</label>
+        <input id="fileInput" type="file" multiple hidden>
+      </div>
+      <div id="fileList" class="file-list"><div class="empty-state">Aún no hay archivos publicados en esta semana.</div></div>
+      <p class="admin-hint admin-only hidden">Los cambios se guardan directamente en el repositorio de GitHub.</p>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="adminModal">
+    <section class="modal admin-modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <button class="modal-close" data-close="adminModal" aria-label="Cerrar">×</button>
+      <div class="eyebrow">ACCESO RESTRINGIDO</div>
+      <h2 id="adminTitle">Panel de <span>administración</span></h2>
+      <p>El portafolio es público. Solo el administrador necesita autorizar cambios en el repositorio.</p>
+      <div id="adminLoggedOut">
+        <label class="field-label" for="tokenInput">Token de acceso de GitHub</label>
+        <input class="token-input" id="tokenInput" type="password" autocomplete="off" placeholder="ghp_… o github_pat_…">
+        <p class="security-note">El token se mantiene únicamente en esta pestaña y no está escrito en el código del sitio. No lo compartas.</p>
+        <button class="primary-button full-button" id="loginButton">Entrar como administrador <span>→</span></button>
+      </div>
+      <div id="adminLoggedIn" class="hidden">
+        <div class="success-line">✓ Sesión de administración activa</div>
+        <p>Ya puedes subir archivos y eliminar evidencias desde las semanas.</p>
+        <button class="secondary-button full-button" id="logoutButton">Cerrar sesión</button>
+      </div>
+      <div class="error-message" id="adminError" role="alert"></div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden viewer-backdrop" id="viewerModal">
+    <section class="modal viewer-modal" role="dialog" aria-modal="true" aria-labelledby="viewerTitle">
+      <div class="viewer-bar">
+        <b id="viewerTitle">Archivo</b>
+        <div class="viewer-actions">
+          <a id="viewerNew" target="_blank" rel="noopener">Abrir en pestaña nueva</a>
+          <a id="viewerDownload" download>Descargar</a>
+          <button class="viewer-close" data-close="viewerModal" aria-label="Cerrar visor">×</button>
+        </div>
+      </div>
+      <div class="viewer-body" id="viewerBody"></div>
+    </section>
+  </div>
+
+  <aside class="bot-widget" id="botWidget" aria-label="Asistente Gaia">
+    <div class="bot-panel hidden" id="botPanel" role="dialog" aria-label="Chat con Gaia">
+      <div class="bot-head">
+        <span class="bot-avatar" data-earth="38"></span>
+        <div><b>Gaia</b><small><i class="bot-online"></i> Guía del universo académico</small></div>
+        <button id="botClose" aria-label="Cerrar chat">×</button>
+      </div>
+      <div class="bot-log" id="botLog" aria-live="polite"></div>
+      <div class="bot-quick" id="botQuick"></div>
+      <form class="bot-form" id="botForm" autocomplete="off">
+        <input id="botInput" type="text" placeholder="Pregúntame sobre el portafolio…" aria-label="Escribe tu pregunta" maxlength="200">
+        <button type="submit" aria-label="Enviar">➤</button>
+      </form>
+    </div>
+    <button class="bot-launch" id="botLaunch" aria-label="Abrir asistente Gaia"><span class="earth-btn" data-earth="58"></span><b>¡Hola! Soy Gaia</b></button>
+  </aside>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
