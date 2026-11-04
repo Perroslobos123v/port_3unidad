@@ -24,7 +24,16 @@
   const formatSize = n => n < 1024 ? `${n} B` : n < 1048576 ? `${(n/1024).toFixed(1)} KB` : `${(n/1048576).toFixed(1)} MB`;
   const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const fileIcon = name => { const ext=name.split(".").pop().toLowerCase(); return ({pdf:"PDF",doc:"DOC",docx:"DOC",xls:"XLS",xlsx:"XLS",ppt:"PPT",pptx:"PPT",png:"IMG",jpg:"IMG",jpeg:"IMG",webp:"IMG",sql:"SQL",zip:"ZIP",mp4:"VID"})[ext] || "FILE"; };
-
+const cargarMarkdownEnModal = async (rutaArchivo, contenedorId) => {
+      try {
+          const respuesta = await fetch(rutaArchivo);
+          const textoMarkdown = await respuesta.text();
+          const htmlRenderizado = marked.parse(textoMarkdown);
+          document.querySelector(contenedorId).innerHTML = htmlRenderizado;
+      } catch (error) {
+          console.error("Error al cargar el documento Markdown:", error);
+      }
+  };
   function renderUnits(){
     $("#unitGrid").innerHTML = unitMeta.map((u,i)=>`
       <article class="unit-card" style="--accent:${u.accent};--glow:${u.glow}">
