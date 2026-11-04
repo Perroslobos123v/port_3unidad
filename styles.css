@@ -155,3 +155,46 @@ footer{border-top:1px solid var(--line);padding:25px 10vw;display:flex;justify-c
 @media(prefers-reduced-motion:reduce){.earth-map,.earth-eyes,.earth-btn,.typing i{animation:none!important}}
 [hidden]{display:none!important}
 .hero-id{max-width:100%}
+/* Ajustes visuales para el visor de Markdown */
+#viewerBody {
+    padding: 20px;
+    color: #e2e8f0;
+    font-family: inherit;
+    line-height: 1.6;
+    overflow-y: auto;
+}
+
+#viewerBody h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+#viewerBody h2 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: #ffffff;
+}
+
+#viewerBody p {
+    margin-bottom: 1rem;
+}
+
+#viewerBody table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background-color: rgba(15, 23, 42, 0.6);
+}
+
+#viewerBody th, #viewerBody td {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 10px 14px;
+    text-align: left;
+}
+
+#viewerBody th {
+    background-color: rgba(255, 255, 255, 0.1);
+    font-weight: bold;
+}
