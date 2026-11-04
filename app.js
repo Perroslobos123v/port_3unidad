@@ -88,10 +88,26 @@ const cargarMarkdownEnModal = async (rutaArchivo, contenedorId) => {
     const frame=src=>{body.innerHTML="";const fr=document.createElement("iframe");fr.src=src;fr.title=f.name;body.appendChild(fr);};
     if(["pdf","html","htm"].includes(ext)) frame(rel);
     else if(["png","jpg","jpeg","webp","gif","svg"].includes(ext)){body.innerHTML="";const im=document.createElement("img");im.src=rel;im.alt=f.name;body.appendChild(im);}
-    else if(["sql","txt","md","csv","json"].includes(ext)){
-      try{const r=await fetch(rel);if(!r.ok)throw 0;const t=await r.text();body.innerHTML="";const pre=document.createElement("pre");pre.className="viewer-code";pre.textContent=t;body.appendChild(pre);}
-      catch(e){msg("No se pudo cargar el contenido. Pulsa <b>Descargar</b> para verlo.");}
+   else if(["sql","txt","csv","json"].includes(ext)){
+    try{
+        const r=await fetch(rel);
+        if(!r.ok)throw 0;
+        const t=await r.text();
+        body.innerHTML="";
+        const pre=document.createElement("pre");
+        pre.className="viewer-code";
+        pre.textContent=t;
+        body.appendChild(pre);
+    }catch(e){msg("No se pudo cargar el contenido. Pulsa <b>Descargar</b> para verlo.");}
+}
+else if(ext === "md"){
+    try{
+        body.innerHTML="";
+        await cargarMarkdownEnModal(rel, "#viewerBody");
+    }catch(e){
+        msg("No se pudo renderizar el archivo Markdown. Pulsa <b>Descargar</b> para verlo.");
     }
+}
     else if(["doc","docx","ppt","pptx","xls","xlsx"].includes(ext)){
       if(/^https?:$/.test(location.protocol)&&!/^(localhost|127\.)/.test(location.hostname)) frame("https://view.officeapps.live.com/op/embed.aspx?src="+encodeURIComponent(abs));
       else msg("Los documentos de Office se muestran cuando el portafolio está publicado en GitHub Pages.");
