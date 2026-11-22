@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="es"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><title>Proyecto 2 · Sistema automatizado de respaldo, mantenimiento y retención</title><style>
+@font-face{font-family:'Lilita';src:url('assets/fuente_01.woff2');}
+@font-face{font-family:'Nun';font-weight:600;src:url('assets/fuente_02.woff2');}
+@font-face{font-family:'Nun';font-weight:700;src:url('assets/fuente_03.woff2');}
+@font-face{font-family:'Nun';font-weight:800;src:url('assets/fuente_04.woff2');}
+@font-face{font-family:'Mono';font-weight:400;src:url('assets/fuente_05.woff2');}
+@font-face{font-family:'Mono';font-weight:700;src:url('assets/fuente_06.woff2');}
+:root{--ink:#f3f6ff;--muted:#b4bcff;--cyan:#19f0ff;--yellow:#ffe600;--magenta:#ff2fd0;--green:#39ff6a;--orange:#ff9b1a;--red:#ff3b3b;
+--acc:#39ff6a;--accd:#14802f;--night:#05072a;}
+*{box-sizing:border-box;}
+html{background-color:#0b0f3a;
+ background-image:linear-gradient(rgba(25,240,255,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(25,240,255,.075) 1px,transparent 1px);
+ background-size:26px 26px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{margin:0;font-family:'Nun','DejaVu Sans',sans-serif;font-weight:600;font-size:9.6pt;line-height:1.5;color:var(--ink);}
+b{font-weight:800;color:#fff;}
+i{color:#d9dcff;}
+code{font-family:'Mono',monospace;font-size:.88em;color:var(--cyan);background:rgba(0,0,0,.4);padding:0 4px;border-radius:3px;}
+p{margin:0 0 7px;}
+.hero{position:relative;border:4px solid #000;border-radius:16px;padding:16px 18px 16px;margin-bottom:13px;
+ background:linear-gradient(135deg,var(--accd) 0%,#1a1f82 55%,#0c1050 100%);box-shadow:0 0 0 3px var(--acc);
+ display:grid;grid-template-columns:1.25fr .75fr;gap:12px;align-items:center;break-inside:avoid;}
+.hero .lvl{display:inline-flex;align-items:center;gap:8px;background:#000;border-radius:30px;padding:3px 14px 3px 5px;margin-bottom:8px;
+ font-family:'Lilita';font-size:10pt;color:var(--yellow);letter-spacing:.05em;}
+.hero h1{font-family:'Lilita';font-weight:400;font-size:25pt;line-height:1.02;margin:0 0 8px;color:#fff;text-transform:uppercase;
+ text-shadow:-3px -3px 0 #000,3px -3px 0 #000,-3px 3px 0 #000,3px 3px 0 #000,0 5px 0 #000,0 0 18px var(--acc);}
+.hero .lead{margin:0;font-size:10.2pt;color:#e8ecff;}
+.hero svg.scene{width:100%;height:auto;display:block;}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px;break-inside:avoid;}
+.chip{background:var(--night);border:3px solid #000;border-radius:9px;padding:5px 11px;box-shadow:0 0 0 2px var(--acc);}
+.chip span{display:block;font-family:'Lilita';font-size:7.5pt;letter-spacing:.12em;color:var(--acc);text-transform:uppercase;}
+.chip strong{font-family:'Lilita';font-weight:400;font-size:11pt;color:#fff;letter-spacing:.02em;}
+.box2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px;}
+.sub{font-family:'Lilita';font-size:12.5pt;color:var(--yellow);margin:13px 0 6px;letter-spacing:.03em;
+ text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 3px 0 #000;break-after:avoid;}
+.sub small{font-family:'Nun';font-size:8.5pt;color:var(--muted);text-shadow:none;font-weight:600;margin-left:6px;}
+.panel{position:relative;border:3px solid #000;border-radius:13px;margin:0 0 15px;background:linear-gradient(180deg,#1c2384,#10155e 140px,#0e1255);
+ box-shadow:0 0 0 3px var(--acc),0 0 22px rgba(0,0,0,.5);}
+.panel-head{display:flex;align-items:center;gap:11px;padding:8px 13px;border-bottom:3px solid #000;border-radius:9px 9px 0 0;
+ background:linear-gradient(90deg,var(--accd),rgba(10,16,80,.3) 80%);break-after:avoid;}
+.rank{flex:none;width:36px;height:36px;display:grid;place-items:center;font-family:'Lilita';font-size:17pt;color:#fff;border:3px solid #000;border-radius:7px;
+ background:var(--acc);box-shadow:inset 0 0 0 3px rgba(255,255,255,.4),inset 0 -6px 0 rgba(0,0,0,.22);
+ text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000;}
+.panel-head h2{margin:0;flex:1;font-family:'Lilita';font-weight:400;font-size:14pt;line-height:1.1;color:#fff;letter-spacing:.02em;
+ text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 3px 0 #000;}
+.tag{flex:none;font-family:'Lilita';font-size:8pt;letter-spacing:.1em;color:var(--acc);background:#000;border-radius:5px;padding:2px 9px;}
+.panel-body{padding:12px 14px 13px;}
+.keep{break-inside:avoid;}
+.pbf{padding-bottom:0!important;}.pbr{padding-top:0!important;}
+.frames:not(.row) .frame{max-width:80%;margin:0 auto;}
+.panel-head,.sub{break-after:avoid-page;}
+.panel-body>*:last-child{margin-bottom:0;}
+.code{position:relative;background:var(--night);border:3px solid #000;border-left:7px solid var(--magenta);border-radius:7px;margin:0 0 10px;break-inside:avoid;
+ box-shadow:0 0 0 2px rgba(255,255,255,.12);}
+.code.long{break-inside:auto;}
+.code .lab{position:absolute;right:7px;top:-9px;font-family:'Lilita';font-size:7pt;letter-spacing:.1em;background:var(--magenta);color:#000;border:2px solid #000;border-radius:4px;padding:0 7px;}
+.code pre{margin:0;padding:9px 11px;font-family:'Mono',monospace;font-weight:400;font-size:7.1pt;line-height:1.55;color:#e8ecff;white-space:pre-wrap;overflow-wrap:anywhere;font-variant-ligatures:none;}
+.k{color:var(--yellow);font-weight:700;}.s{color:var(--green);}.i{color:var(--cyan);}.v{color:var(--orange);}.c{color:#8e97e6;font-style:italic;}.n{color:var(--magenta);}
+.explain{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:5px;}
+.explain li{position:relative;padding-left:22px;}
+.explain li::before{content:"";position:absolute;left:2px;top:.42em;width:10px;height:10px;background:var(--acc);border:2px solid #000;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35);}
+.tip{border:3px solid #000;border-radius:9px;margin:0 0 10px;background:#0b0f4d;overflow:hidden;break-inside:avoid;box-shadow:0 0 0 2px var(--tc,#ffe600);}
+.tip h3{display:flex;align-items:center;gap:8px;margin:0;padding:4px 12px;font-family:'Lilita';font-weight:400;font-size:9.5pt;letter-spacing:.07em;text-transform:uppercase;color:#000;background:var(--tc,#ffe600);border-bottom:3px solid #000;}
+.tip h3 em{font-style:normal;display:grid;place-items:center;width:17px;height:17px;background:#000;color:var(--tc,#ffe600);border-radius:4px;font-size:9pt;}
+.tip p{margin:0;padding:8px 12px 9px;}
+.tip.warn{--tc:#ff9b1a;}.tip.danger{--tc:#ff3b3b;}.tip.info{--tc:#19f0ff;}.tip.ok{--tc:#39ff6a;}.tip.pink{--tc:#ff2fd0;}
+.tbl{border:3px solid #000;border-radius:9px;overflow:hidden;margin:0 0 10px;box-shadow:0 0 0 2px rgba(255,255,255,.15);break-inside:avoid;}
+.tbl.long{break-inside:auto;}
+table{border-collapse:collapse;width:100%;}
+th{font-family:'Lilita';font-weight:400;font-size:8.4pt;letter-spacing:.07em;text-align:left;color:var(--yellow);background:var(--accd);padding:5px 9px;border-bottom:3px solid #000;text-transform:uppercase;}
+td{font-size:8.7pt;padding:4px 9px;background:rgba(0,0,0,.3);border-bottom:2px solid rgba(0,0,0,.65);vertical-align:top;line-height:1.35;}
+tr:nth-child(even) td{background:rgba(0,0,0,.45);}
+tr:last-child td{border-bottom:0;}
+tr{break-inside:avoid;}
+td:first-child b{color:var(--acc);}
+.evhead{display:flex;align-items:center;gap:9px;margin:2px 0 8px;break-after:avoid;}
+.coinbadge{flex:none;display:inline-flex;align-items:center;gap:5px;background:var(--yellow);color:#000;font-family:'Lilita';font-size:9pt;letter-spacing:.07em;
+ border:3px solid #000;border-radius:7px;padding:1px 9px 1px 6px;transform:rotate(-2deg);box-shadow:0 3px 0 #000;}
+.evtitle{font-weight:800;color:#fff;font-size:9.4pt;line-height:1.25;}
+.evgroup{margin:0 0 12px;break-inside:avoid;}
+.frames{display:grid;gap:9px;}
+.frames.row{grid-template-columns:1fr 1fr;align-items:start;}
+.frame{margin:0;}
+.fr-outer{padding:8px;border:3px solid #000;border-radius:11px;
+ background:radial-gradient(circle at 7px 7px,#fff 0 2.2px,transparent 2.6px),radial-gradient(circle at calc(100% - 7px) 7px,#fff 0 2.2px,transparent 2.6px),
+ radial-gradient(circle at 7px calc(100% - 7px),#fff 0 2.2px,transparent 2.6px),radial-gradient(circle at calc(100% - 7px) calc(100% - 7px),#fff 0 2.2px,transparent 2.6px),
+ linear-gradient(135deg,var(--acc),var(--magenta) 55%,var(--yellow));
+ box-shadow:0 0 0 3px #000,0 6px 0 3px #000;}
+.fr-inner{background:#000;padding:3px;border-radius:6px;border:2px solid rgba(255,255,255,.55);}
+.frame img{display:block;width:100%;height:auto;border-radius:3px;}
+.frame figcaption{margin:9px 0 0;font-size:8.2pt;color:var(--muted);text-align:center;font-style:italic;}
+.pending .fr-inner{display:grid;place-items:center;min-height:82px;text-align:center;background:repeating-linear-gradient(45deg,#05072a 0 10px,#0a0e44 10px 20px);border:2px dashed var(--acc);}
+.pending strong{font-family:'Lilita';font-weight:400;font-size:12pt;letter-spacing:.1em;color:var(--yellow);display:block;}
+.pending span{font-size:8pt;color:var(--muted);}
+.route{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:0 0 13px;position:relative;break-inside:avoid;}
+.route .st{position:relative;background:var(--night);border:3px solid #000;border-radius:9px;padding:8px 6px 7px;text-align:center;box-shadow:0 0 0 2px var(--acc);}
+.route .st .n1{display:grid;place-items:center;width:26px;height:26px;margin:-19px auto 4px;border:3px solid #000;border-radius:6px;background:var(--yellow);color:#000;font-family:'Lilita';font-size:11pt;}
+.route .st strong{display:block;font-family:'Lilita';font-weight:400;font-size:9pt;line-height:1.1;color:#fff;margin-bottom:3px;}
+.route .st span{font-size:7.6pt;color:var(--muted);line-height:1.2;display:block;}
+.route .st:not(:last-child)::after{content:"";position:absolute;right:-11px;top:50%;margin-top:-6px;border-left:8px solid var(--yellow);border-top:6px solid transparent;border-bottom:6px solid transparent;z-index:2;}
+.flow{display:flex;align-items:stretch;gap:0;margin:0 0 10px;break-inside:avoid;}
+.flow .bx{flex:1;background:var(--night);border:3px solid #000;border-radius:9px;padding:6px 7px;text-align:center;box-shadow:0 0 0 2px var(--c,var(--acc));}
+.flow .bx strong{display:block;font-family:'Lilita';font-weight:400;font-size:9.2pt;line-height:1.1;color:var(--c,var(--acc));margin-bottom:2px;}
+.flow .bx span{font-size:7.8pt;color:#d6dbff;line-height:1.2;display:block;}
+.flow .ar{flex:none;width:20px;position:relative;}
+.flow .ar::after{content:"";position:absolute;left:4px;top:50%;margin-top:-7px;border-left:12px solid var(--yellow);border-top:7px solid transparent;border-bottom:7px solid transparent;}
+.cards{display:grid;gap:9px;margin:0 0 10px;}
+.card{border:3px solid #000;border-radius:9px;background:#0b0f4d;overflow:hidden;break-inside:avoid;box-shadow:0 0 0 2px var(--cc,var(--acc));}
+.card h4{margin:0;padding:4px 11px;font-family:'Lilita';font-weight:400;font-size:10pt;letter-spacing:.06em;color:#000;background:var(--cc,var(--acc));border-bottom:3px solid #000;text-transform:uppercase;}
+.card ul{list-style:none;margin:0;padding:7px 11px 8px;display:grid;gap:3px;}
+.card li{position:relative;padding-left:15px;font-size:8.8pt;line-height:1.35;}
+.card li::before{content:"";position:absolute;left:0;top:.45em;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--cc,var(--acc));}
+.result{border:3px solid #000;border-radius:10px;padding:0;margin:0 0 12px;overflow:hidden;background:#0b0f4d;box-shadow:0 0 0 3px var(--green);break-inside:avoid;}
+.result h3{margin:0;padding:4px 12px;font-family:'Lilita';font-weight:400;font-size:11pt;letter-spacing:.08em;color:#000;background:var(--green);border-bottom:3px solid #000;}
+.result p{margin:0;padding:9px 13px;font-size:9.8pt;}
+.concl{list-style:none;margin:0;padding:0;display:grid;gap:6px;}
+.concl li{position:relative;padding:5px 10px 5px 34px;background:rgba(0,0,0,.35);border:2px solid #000;border-radius:7px;font-size:9.2pt;break-inside:avoid;}
+.concl li::before{content:"★";position:absolute;left:9px;top:3px;font-size:12pt;color:var(--yellow);text-shadow:-1px -1px 0 #000,1px 1px 0 #000;font-family:'DejaVu Sans';}
+.chk{display:inline-block;width:11px;height:11px;border:2px solid var(--yellow);border-radius:2px;margin-right:6px;vertical-align:-1px;}
+.mt{margin-top:12px;}
+
+html{scroll-behavior:smooth;}
+body{max-width:1020px;margin:0 auto;padding:0 16px 40px;font-size:16px;}
+.topnav{position:sticky;top:0;z-index:50;margin:0 -16px 18px;padding:8px 12px;background:#05072aee;border-bottom:3px solid var(--acc);display:flex;gap:6px;overflow-x:auto;backdrop-filter:blur(6px);}
+.topnav a{flex:none;font-family:'Lilita';font-size:14px;letter-spacing:.04em;color:#fff;text-decoration:none;background:#000;border:2px solid var(--acc);border-radius:8px;padding:3px 11px;}
+.topnav a:hover{background:var(--acc);color:#000;}
+.panel{scroll-margin-top:60px;margin-bottom:28px;}
+.hero{margin-top:18px;}
+.hero h1{font-size:clamp(28px,6vw,48px);}
+.hero .lead{font-size:18px;}.hero .lvl{font-size:15px;}
+.chip span{font-size:12px;}.chip strong{font-size:17px;}
+.sub{font-size:21px;margin-top:20px;}.sub small{font-size:14px;}
+.panel-head h2{font-size:clamp(18px,3vw,25px);}.rank{width:46px;height:46px;font-size:24px;}.tag{font-size:12px;}
+.panel-body{padding:18px 22px 20px;}
+.pbf{padding-bottom:0!important;}.pbr{padding-top:0!important;}
+.code pre{font-size:13px;overflow-x:auto;white-space:pre;overflow-wrap:normal;}
+.code .lab{font-size:11px;}
+th{font-size:13px;}td{font-size:15px;}
+.tbl{overflow-x:auto;}.tbl table{min-width:520px;}
+.tip h3,.card h4,.result h3{font-size:15px;}.card li{font-size:14.5px;}
+.coinbadge{font-size:14px;}.evtitle{font-size:16px;}
+.frame figcaption{font-size:14px;}
+.frames:not(.row) .frame{max-width:88%;}
+.route .st strong{font-size:14px;}.route .st span{font-size:12.5px;}
+.flow .bx strong{font-size:14px;}.flow .bx span{font-size:12.5px;}
+.concl li{font-size:15px;}
+.foot{margin-top:30px;background:var(--night);border-top:3px solid var(--acc);border-radius:10px;padding:14px 18px;text-align:center;font-family:'Lilita';letter-spacing:.05em;color:#fff;}
+.foot span{color:var(--yellow);}
+@media (max-width:760px){
+ .hero{grid-template-columns:1fr;}.meta,.box2{grid-template-columns:1fr;}
+ .route{grid-template-columns:1fr 1fr;gap:20px 12px;}.route .st:not(:last-child)::after{display:none;}
+ .cards{grid-template-columns:1fr!important;}
+ .flow{flex-direction:column;}.flow .ar{width:auto;height:20px;}.flow .ar::after{left:50%;top:2px;margin:0 0 0 -7px;border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid var(--yellow);border-bottom:0;}
+ .frames.row{grid-template-columns:1fr;}.frames:not(.row) .frame{max-width:100%;}
+ .panel-body{padding:14px 12px;}.code pre{font-size:12px;}
+}
+@media print{.topnav{display:none;}}
+</style></head><body><nav class="topnav" aria-label="Entregables"><a href="#e1">Entregable 1</a><a href="#e2">Entregable 2</a><a href="#e3">Entregable 3</a><a href="#e4">Entregable 4</a><a href="#e5">Entregable 5</a><a href="#e6">Entregable 6</a><a href="#e7">Entregable 7</a><a href="#e8">Entregable 8</a><a href="#e9">Entregable 9</a></nav><header class="hero"><div><div class="lvl"><svg viewBox="0 0 40 40" width="34" height="34"><circle cx="20" cy="20" r="17" fill="#ff7a1a" stroke="#000" stroke-width="3.5"/><rect x="11" y="14" width="6" height="8" fill="#000"/><rect x="23" y="14" width="6" height="8" fill="#000"/><rect x="12" y="27" width="16" height="3.5" fill="#000"/></svg><span>PROYECTO 2 · NIVEL INTERMEDIO–AVANZADO · HARDER 6<span style="font-family:DejaVu Sans"> ★</span></span></div><h1>Sistema automatizado de respaldo, mantenimiento y retención</h1><p class="lead">Automatización, verificación, mantenimiento y políticas de retención de la base de datos <b>GradosTitulos</b>.</p></div><div><svg viewBox="0 0 330 230" xmlns="http://www.w3.org/2000/svg">
+<defs><radialGradient id="glow"><stop offset="0" stop-color="#39ff6a" stop-opacity=".55"/><stop offset="1" stop-color="#39ff6a" stop-opacity="0"/></radialGradient></defs>
+<circle cx="165" cy="100" r="110" fill="url(#glow)"/>
+<ellipse cx="260" cy="95" rx="20" ry="52" fill="none" stroke="#ff2fd0" stroke-width="9"/>
+<ellipse cx="260" cy="95" rx="9" ry="36" fill="none" stroke="#ffe600" stroke-width="4"/>
+<polygon points="112.0,70.0 97.6,77.4 106.4,91.0 90.2,90.2 91.0,106.4 77.4,97.6 70.0,112.0 62.6,97.6 49.0,106.4 49.8,90.2 33.6,91.0 42.4,77.4 28.0,70.0 42.4,62.6 33.6,49.0 49.8,49.8 49.0,33.6 62.6,42.4 70.0,28.0 77.4,42.4 91.0,33.6 90.2,49.8 106.4,49.0 97.6,62.6" fill="#ff3b3b" stroke="#000" stroke-width="4" stroke-linejoin="round"/><circle cx="70" cy="70" r="16.0" fill="#000"/><circle cx="70" cy="70" r="7.6" fill="#ffe600"/>
+<polygon points="241.0,40.0 231.8,45.5 236.0,55.3 225.4,54.3 223.0,64.7 215.0,57.7 207.0,64.7 204.6,54.3 194.0,55.3 198.2,45.5 189.0,40.0 198.2,34.5 194.0,24.7 204.6,25.7 207.0,15.3 215.0,22.3 223.0,15.3 225.4,25.7 236.0,24.7 231.8,34.5" fill="#ff9b1a" stroke="#000" stroke-width="4" stroke-linejoin="round"/><circle cx="215" cy="40" r="9.9" fill="#000"/><circle cx="215" cy="40" r="4.7" fill="#ffe600"/>
+<g transform="translate(118,108)"><rect width="70" height="70" rx="5.6" fill="#ffe600" stroke="#000" stroke-width="5.6"/><rect x="14.0" y="14.0" width="42.0" height="42.0" fill="#19f0ff" stroke="#000" stroke-width="4.2"/><rect x="19.6" y="21.0" width="11.2" height="14.0" fill="#000"/><rect x="39.2" y="21.0" width="11.2" height="14.0" fill="#000"/><rect x="19.6" y="43.4" width="30.8" height="6.3" fill="#000"/></g>
+<rect x="0" y="178" width="330" height="52" fill="#05072a" stroke="#000" stroke-width="4"/>
+<rect x="0" y="178" width="330" height="8" fill="#39ff6a"/>
+<polygon points="190,178 205.0,144 220,178" fill="#05072a" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><polygon points="220,178 235.0,144 250,178" fill="#05072a" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><polygon points="250,178 265.0,144 280,178" fill="#05072a" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><polygon points="280,178 295.0,144 310,178" fill="#05072a" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+<g fill="#39ff6a" opacity=".9"><rect x="14" y="196" width="22" height="22"/><rect x="48" y="196" width="22" height="22"/><rect x="82" y="196" width="22" height="22"/></g>
+</svg></div></header><div class="meta"><div class="chip"><span>Estudiante</span><strong>RAMOS ZAMORA MICHAEL DEIVIS</strong></div><div class="chip"><span>Curso</span><strong>Base de Datos II</strong></div><div class="chip"><span>Docente</span><strong>Mg. Ing. Raúl Fernández Bejarano</strong></div><div class="chip"><span>Fecha</span><strong>21-11-26</strong></div></div><div class="box2"><div class="tip info"><h3><em>i</em>Objetivo del proyecto</h3><p>Diseñar e implementar un sistema automatizado de respaldo, mantenimiento y control de copias de GradosTitulos, mediante planificación de backups, automatización de tareas, verificación de archivos y políticas de retención.</p></div><div class="tip danger"><h3><em>✖</em>Situación problemática</h3><p>La información crece cada semestre, los respaldos se hacen a mano y sin planificación, y los archivos se guardan sin clasificar: no se sabe cuáles son los más recientes ni cuáles se pueden eliminar.</p></div></div><h3 class="sub">Ruta del proyecto</h3><div class="route"><div class="st"><div class="n1">1</div><strong>Política y estructura</strong><span>Retención y carpetas</span></div><div class="st"><div class="n1">2</div><strong>Backups con procedimiento</strong><span>usp_Backup</span></div><div class="st"><div class="n1">3</div><strong>Automatizar tareas</strong><span>Agente SQL / Task Scheduler</span></div><div class="st"><div class="n1">4</div><strong>Verificar y retener</strong><span>usp_Verificar y usp_Retencion</span></div><div class="st"><div class="n1">5</div><strong>Restaurar y probar</strong><span>Entorno de prueba</span></div></div><h3 class="sub">Lista de control de entregables<small>qué contiene este informe</small></h3><div class="tbl"><table><colgroup><col style="width:62%"><col style="width:38%"></colgroup><thead><tr><th>Entregable</th><th>Dónde está en este informe</th></tr></thead><tbody><tr><td><span class="chk"></span>Documento de política institucional de respaldo y retención</td><td>Entregable 1</td></tr><tr><td><span class="chk"></span>Diagrama o esquema del proceso automatizado</td><td>Entregable 2</td></tr><tr><td><span class="chk"></span>Script SQL de respaldo completo y diferencial</td><td>Entregable 3 · Evidencias 1 y 2</td></tr><tr><td><span class="chk"></span>Scripts o configuración de automatización de tareas</td><td>Entregable 4 · Evidencias 3 y 4</td></tr><tr><td><span class="chk"></span>Procedimientos de verificación de copias</td><td>Entregable 5 · Evidencia 5</td></tr><tr><td><span class="chk"></span>Procedimiento de mantenimiento y retención</td><td>Entregable 6 · Evidencias 6 y 7</td></tr><tr><td><span class="chk"></span>Evidencias de ejecución de las tareas programadas</td><td>Entregables 4 y 8 · Evidencias 3, 4 y 12</td></tr><tr><td><span class="chk"></span>Evidencias de restauración y verificación</td><td>Entregable 8 · Evidencias 10 y 11</td></tr><tr><td><span class="chk"></span>Infografía técnica del sistema automatizado</td><td>Entregable 9</td></tr></tbody></table></div><h3 class="sub">Escenarios a simular y dónde se demuestran</h3><div class="tbl"><table><colgroup><col style="width:8%"><col style="width:62%"><col style="width:30%"></colgroup><thead><tr><th>N.º</th><th>Escenario</th><th>Evidencias</th></tr></thead><tbody><tr><td>1</td><td>Política semanal de completo y diferenciales periódicos</td><td>1, 2 (Entregables 1 y 3)</td></tr><tr><td>2</td><td>Automatización de tareas de backup</td><td>3, 4 (Entregable 4)</td></tr><tr><td>3</td><td>Detección de un backup incompleto o que no supera la verificación</td><td>5, 8, 9 (Entregables 5 y 7)</td></tr><tr><td>4</td><td>Aplicación de la política de retención</td><td>6, 7 (Entregable 6)</td></tr><tr><td>5</td><td>Restauración en un entorno de prueba</td><td>10, 11 (Entregable 8)</td></tr><tr><td>6</td><td>Comprobación de las tareas programadas de mantenimiento y respaldo</td><td>12 (Entregable 8)</td></tr></tbody></table></div><div class="tip warn"><h3><em>!</em>Orden de ejecución recomendado</h3><p><b>(1)</b> Crear DBA_Admin y la bitácora; <b>(2)</b> crear <code>usp_Backup</code> y ejecutar FULL y DIFF (Ev. 1 y 2); <b>(3)</b> crear los trabajos o tareas programadas (Ev. 3 y 4); <b>(4)</b> crear <code>usp_VerificarBackups</code> (Ev. 5); <b>(5)</b> crear <code>usp_Retencion</code> y probarlo (Ev. 6 y 7); <b>(6)</b> simular fallos (Ev. 8 y 9); <b>(7)</b> restaurar en GradosTitulos_Lab y comparar (Ev. 10 y 11); <b>(8)</b> ejecutar un trabajo y capturar su historial (Ev. 12).</p></div><section class="panel" id="e1"><div class="keep"><div class="panel-head"><span class="rank">1</span><h2>Política institucional de respaldo y retención</h2><span class="tag">DOCUMENTO</span></div><div class="panel-body pbf"><h3 class="sub">1.1 Propósito y alcance</h3><p>Esta política establece cómo, cuándo y dónde se respalda la base de datos GradosTitulos, cómo se verifican las copias y por cuánto tiempo se conservan. Aplica a todas las copias completas, diferenciales y de registro (bitácora) generadas por el área de tecnologías de la información. Su finalidad es que el administrador deje de ejecutar respaldos manuales y que siempre pueda identificar cuál es el respaldo vigente y cuáles pueden eliminarse sin afectar la recuperación.</p></div></div><div class="panel-body pbr"><h3 class="sub">1.2 Análisis de volumen y tablas críticas</h3><p>El crecimiento semestral (estudiantes, matrículas, trámites, pagos, evaluaciones, resoluciones y diplomas) se estima con el tamaño de la base y el número de filas por esquema. Las tablas de los esquemas Tramite, Documento y Seguridad son las más críticas para los procesos de grados y títulos.</p><div class="code"><span class="lab">T-SQL</span><pre><span class="k">USE</span> GradosTitulos;
+<span class="k">GO</span>
+<span class="k">EXEC</span> <span class="i">sp_spaceused</span>;
+<span class="k">GO</span>
+<span class="k">SELECT</span> <span class="i">s.name</span> <span class="k">AS</span> Esquema, <span class="i">t.name</span> <span class="k">AS</span> Tabla, <span class="k">SUM</span>(<span class="i">p.rows</span>) <span class="k">AS</span> Filas
+<span class="k">FROM</span> <span class="i">sys.tables</span> t
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="i">sys.schemas</span> s <span class="k">ON</span> <span class="i">t.schema_id</span> = <span class="i">s.schema_id</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="i">sys.partitions</span> p <span class="k">ON</span> <span class="i">p.object_id</span> = <span class="i">t.object_id</span> <span class="k">AND</span> <span class="i">p.index_id</span> <span class="k">IN</span> (<span class="n">0</span>,<span class="n">1</span>)
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="i">s.name</span>, <span class="i">t.name</span>
+<span class="k">ORDER</span> <span class="k">BY</span> Filas <span class="k">DESC</span>;
+<span class="k">GO</span></pre></div><h3 class="sub">1.3 Política de respaldo</h3><div class="tbl"><table><colgroup><col style="width:15%"><col style="width:22%"><col style="width:13%"><col style="width:33%"><col style="width:17%"></colgroup><thead><tr><th>Tipo</th><th>Frecuencia</th><th>Horario</th><th>Ubicación</th><th>Retención</th></tr></thead><tbody><tr><td><b>Completo</b></td><td>Semanal, domingo</td><td>02:00</td><td><code>C:\Backups\GradosTitulos\FULL</code></td><td>35 días</td></tr><tr><td><b>Diferencial</b></td><td>Diario, lunes a sábado</td><td>02:00</td><td><code>C:\Backups\GradosTitulos\DIFF</code></td><td>14 días</td></tr><tr><td><b>Verificación</b></td><td>Tras cada respaldo</td><td>Inmediato</td><td>Procedimiento usp_Backup</td><td>Registro 90 días</td></tr><tr><td><b>Copia externa</b></td><td>Semanal</td><td>04:00</td><td>Recurso de red o disco externo</td><td>28 días</td></tr></tbody></table></div><h3 class="sub">1.4 Reglas de mantenimiento</h3><div class="cards" style="grid-template-columns:repeat(2,1fr)"><div class="card" style="--cc:#39ff6a"><h4>Clasificación</h4><ul><li>Carpeta por base de datos y tipo.</li><li>Nombre con fecha y hora.</li><li>Extensión .bak (.trn para el log).</li></ul></div><div class="card" style="--cc:#ffe600"><h4>Retención segura</h4><ul><li>Nunca borrar el último completo.</li><li>No borrar diferenciales cuyo completo base siga vigente.</li><li>Registrar cada limpieza en la bitácora.</li></ul></div></div><h3 class="sub">Estructura y nomenclatura</h3><div class="code"><span class="lab">RUTA</span><pre>C:\Backups\&lt;BaseDatos&gt;\&lt;TIPO&gt;\&lt;BaseDatos&gt;_&lt;TIPO&gt;<span class="i">_AAAAMMDD_HHMM.bak</span>
+Ejemplo: C:\Backups\GradosTitulos\<span class="k">FULL</span>\<span class="i">GradosTitulos_FULL_20261122_0200.bak</span></pre></div><h3 class="sub">Responsabilidades</h3><div class="tbl"><table><colgroup><col style="width:22%"><col style="width:78%"></colgroup><thead><tr><th>Rol</th><th>Responsabilidad</th></tr></thead><tbody><tr><td><b>DBA de turno</b></td><td>Revisar a diario la bitácora y el resultado de usp_VerificarBackups; atender alertas de trabajos fallidos.</td></tr><tr><td><b>DBA principal</b></td><td>Mantener los procedimientos y trabajos; ejecutar y documentar las pruebas de restauración.</td></tr><tr><td><b>Jefe de TI</b></td><td>Aprobar la política, garantizar el espacio y la copia externa, y revisar los incidentes.</td></tr></tbody></table></div></div></section><section class="panel" id="e2"><div class="keep"><div class="panel-head"><span class="rank">2</span><h2>Diagrama del proceso automatizado</h2><span class="tag">ESQUEMA</span></div><div class="panel-body pbf"><div class="flow"><div class="bx" style="--c:#19f0ff"><strong>1. Programador</strong><span>Agente SQL o Task Scheduler</span></div><div class="ar"></div><div class="bx" style="--c:#39ff6a"><strong>2. usp_Backup</strong><span>FULL o DIFF</span></div><div class="ar"></div><div class="bx" style="--c:#ffe600"><strong>3. VERIFYONLY</strong><span>Con CHECKSUM</span></div></div></div></div><div class="panel-body pbr"><div class="flow"><div class="bx" style="--c:#ff2fd0"><strong>4. Bitácora</strong><span>dbo.BitacoraBackup</span></div><div class="ar"></div><div class="bx" style="--c:#ffe600"><strong>5. Verificación</strong><span>usp_VerificarBackups</span></div><div class="ar"></div><div class="bx" style="--c:#ff9b1a"><strong>6. Retención</strong><span>usp_Retencion</span></div></div><p>El programador dispara <code>usp_Backup</code>; el procedimiento crea la carpeta, genera el archivo, lo verifica y registra el resultado (OK o ERROR) en la bitácora. Después, <code>usp_VerificarBackups</code> revisa los respaldos recientes y <code>usp_Retencion</code> elimina únicamente los archivos vencidos que no son necesarios para recuperar.</p></div></section><section class="panel" id="e3"><div class="keep"><div class="panel-head"><span class="rank">3</span><h2>Script SQL: base de administración y backups</h2><span class="tag">T-SQL</span></div><div class="panel-body pbf"><h3 class="sub">3.1 Base de administración y bitácora</h3><div class="code"><span class="lab">T-SQL</span><pre><span class="k">CREATE</span> <span class="k">DATABASE</span> DBA_Admin;
+<span class="k">GO</span>
+<span class="k">USE</span> DBA_Admin;
+<span class="k">GO</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="i">dbo.BitacoraBackup</span> (
+    Id        <span class="k">INT</span> <span class="k">IDENTITY</span> <span class="k">PRIMARY</span> <span class="k">KEY</span>,
+    Fecha     <span class="k">DATETIME2</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">SYSDATETIME</span>(),
+    BaseDatos <span class="k">SYSNAME</span> <span class="k">NOT</span> <span class="k">NULL</span>,
+    Tipo      <span class="k">VARCHAR</span>(<span class="n">10</span>) <span class="k">NOT</span> <span class="k">NULL</span>,
+    Archivo   <span class="k">NVARCHAR</span>(<span class="n">400</span>) <span class="k">NULL</span>,
+    Resultado <span class="k">VARCHAR</span>(<span class="n">20</span>) <span class="k">NOT</span> <span class="k">NULL</span>,
+    Mensaje   <span class="k">NVARCHAR</span>(<span class="n">2000</span>) <span class="k">NULL</span>
+);
+<span class="k">GO</span></pre></div></div></div><div class="panel-body pbr"><h3 class="sub">3.2 Procedimiento usp_Backup</h3><p>Un único procedimiento realiza el respaldo FULL, DIFF o LOG, lo verifica con CHECKSUM y registra el resultado. Si ocurre un error, lo guarda en la bitácora y lo relanza con THROW para que el trabajo programado figure como fallido.</p><div class="code"><span class="lab">T-SQL</span><pre><span class="k">USE</span> DBA_Admin;
+<span class="k">GO</span>
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">ALTER</span> <span class="k">PROCEDURE</span> <span class="i">dbo.usp_Backup</span>
+    <span class="v">@Base</span> <span class="k">SYSNAME</span> = <span class="s">'GradosTitulos'</span>, <span class="v">@Tipo</span> <span class="k">VARCHAR</span>(<span class="n">4</span>)
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+    <span class="k">SET</span> <span class="k">NOCOUNT</span> <span class="k">ON</span>;
+    <span class="k">DECLARE</span> <span class="v">@dir</span> <span class="k">NVARCHAR</span>(<span class="n">300</span>) = <span class="s">N'C:\Backups\'</span> + <span class="v">@Base</span> + <span class="s">N'\'</span> + <span class="v">@Tipo</span>;
+    <span class="k">DECLARE</span> <span class="v">@arch</span> <span class="k">NVARCHAR</span>(<span class="n">400</span>) = <span class="v">@dir</span> + <span class="s">N'\'</span> + <span class="v">@Base</span> + <span class="s">N'_'</span> + <span class="v">@Tipo</span> + <span class="s">N'_'</span>
+        + <span class="k">FORMAT</span>(<span class="k">GETDATE</span>(),<span class="s">'yyyyMMdd_HHmm'</span>) + <span class="k">CASE</span> <span class="k">WHEN</span> <span class="v">@Tipo</span> = <span class="s">'LOG'</span> <span class="k">THEN</span> <span class="s">N'.trn'</span> <span class="k">ELSE</span> <span class="s">N'.bak'</span> <span class="k">END</span>;
+    <span class="k">BEGIN</span> <span class="k">TRY</span>
+        <span class="k">EXEC</span> <span class="i">master.dbo.xp_create_subdir</span> <span class="v">@dir</span>;
+        <span class="k">IF</span> <span class="v">@Tipo</span> = <span class="s">'FULL'</span>
+            <span class="k">BACKUP</span> <span class="k">DATABASE</span> <span class="v">@Base</span> <span class="k">TO</span> <span class="k">DISK</span> = <span class="v">@arch</span> <span class="k">WITH</span> <span class="k">CHECKSUM</span>, <span class="k">COMPRESSION</span>;
+        <span class="k">ELSE</span> <span class="k">IF</span> <span class="v">@Tipo</span> = <span class="s">'DIFF'</span>
+            <span class="k">BACKUP</span> <span class="k">DATABASE</span> <span class="v">@Base</span> <span class="k">TO</span> <span class="k">DISK</span> = <span class="v">@arch</span> <span class="k">WITH</span> <span class="k">DIFFERENTIAL</span>, <span class="k">CHECKSUM</span>, <span class="k">COMPRESSION</span>;
+        <span class="k">ELSE</span> <span class="k">IF</span> <span class="v">@Tipo</span> = <span class="s">'LOG'</span>
+            <span class="k">BACKUP</span> <span class="k">LOG</span> <span class="v">@Base</span> <span class="k">TO</span> <span class="k">DISK</span> = <span class="v">@arch</span> <span class="k">WITH</span> <span class="k">CHECKSUM</span>, <span class="k">COMPRESSION</span>;
+        <span class="k">RESTORE</span> <span class="k">VERIFYONLY</span> <span class="k">FROM</span> <span class="k">DISK</span> = <span class="v">@arch</span> <span class="k">WITH</span> <span class="k">CHECKSUM</span>;
+        <span class="k">INSERT</span> <span class="i">dbo.BitacoraBackup</span> (BaseDatos, Tipo, Archivo, Resultado)
+            <span class="k">VALUES</span> (<span class="v">@Base</span>, <span class="v">@Tipo</span>, <span class="v">@arch</span>, <span class="s">'OK'</span>);
+    <span class="k">END</span> <span class="k">TRY</span>
+    <span class="k">BEGIN</span> <span class="k">CATCH</span>
+        <span class="k">INSERT</span> <span class="i">dbo.BitacoraBackup</span> (BaseDatos, Tipo, Archivo, Resultado, Mensaje)
+            <span class="k">VALUES</span> (<span class="v">@Base</span>, <span class="v">@Tipo</span>, <span class="v">@arch</span>, <span class="s">'ERROR'</span>, ERROR_MESSAGE());
+        <span class="k">THROW</span>;
+    <span class="k">END</span> <span class="k">CATCH</span>
+<span class="k">END</span>;
+<span class="k">GO</span>
+<span class="k">EXEC</span> <span class="i">DBA_Admin.dbo.usp_Backup</span> <span class="v">@Tipo</span> = <span class="s">'FULL'</span>;
+<span class="k">EXEC</span> <span class="i">DBA_Admin.dbo.usp_Backup</span> <span class="v">@Tipo</span> = <span class="s">'DIFF'</span>;
+<span class="k">SELECT</span> * <span class="k">FROM</span> <span class="i">DBA_Admin.dbo.BitacoraBackup</span> <span class="k">ORDER</span> <span class="k">BY</span> Id <span class="k">DESC</span>;</pre></div><div class="evgroup"><div class="evhead"><span class="coinbadge"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" fill="#ffe600" stroke="#000" stroke-width="2.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="#a34a00" stroke-width="2"/></svg>EVIDENCIA 1</span><span class="evtitle">Backups FULL y DIFF ejecutados y archivos de respaldo generados</span></div><div class="frames"><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_07.jpg" loading="lazy" alt=""></div></div><figcaption>Backup completo (FULL) de GradosTitulos — ejecutado correctamente</figcaption></figure><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_08.jpg" loading="lazy" alt=""></div></div><figcaption>Backup diferencial (DIFF) de GradosTitulos — ejecutado correctamente</figcaption></figure><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_09.jpg" loading="lazy" alt=""></div></div><figcaption>Archivos de respaldo generados en C:\Backups (FULL, DIFF y LOG)</figcaption></figure></div></div></div></section><section class="panel" id="e4"><div class="keep"><div class="panel-head"><span class="rank">4</span><h2>Automatización de las tareas</h2><span class="tag">SQL AGENT</span></div><div class="panel-body pbf"><p>Se crean dos trabajos en el Agente SQL: el completo los domingos a las 02:00 y el diferencial de lunes a sábado a las 02:00. En <code>@freq_interval</code>, domingo vale 1 y lunes a sábado suma 2+4+8+16+32+64 = 126.</p></div></div><div class="panel-body pbr"><div class="code"><span class="lab">SQL AGENT</span><pre><span class="k">USE</span> msdb;
+<span class="k">GO</span>
+<span class="c">-- Trabajo semanal: backup COMPLETO, domingo 02:00</span>
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_job</span> <span class="v">@job_name</span> = <span class="s">N'Backup_FULL_GradosTitulos'</span>;
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_jobstep</span> <span class="v">@job_name</span> = <span class="s">N'Backup_FULL_GradosTitulos'</span>, <span class="v">@step_name</span> = <span class="s">N'FULL'</span>,
+    <span class="v">@subsystem</span> = <span class="s">N'TSQL'</span>, <span class="v">@database_name</span> = <span class="s">N'DBA_Admin'</span>,
+    <span class="v">@command</span> = <span class="s">N'EXEC dbo.usp_Backup @Tipo = ''FULL'';'</span>;
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_jobschedule</span> <span class="v">@job_name</span> = <span class="s">N'Backup_FULL_GradosTitulos'</span>, <span class="v">@name</span> = <span class="s">N'Domingo 02:00'</span>,
+    <span class="v">@freq_type</span> = <span class="n">8</span>, <span class="v">@freq_interval</span> = <span class="n">1</span>, <span class="v">@freq_recurrence_factor</span> = <span class="n">1</span>, <span class="v">@active_start_time</span> = <span class="n">020000</span>;
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_jobserver</span> <span class="v">@job_name</span> = <span class="s">N'Backup_FULL_GradosTitulos'</span>;
+<span class="k">GO</span>
+<span class="c">-- Trabajo diario: backup DIFERENCIAL, lunes a sábado 02:00</span>
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_job</span> <span class="v">@job_name</span> = <span class="s">N'Backup_DIFF_GradosTitulos'</span>;
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_jobstep</span> <span class="v">@job_name</span> = <span class="s">N'Backup_DIFF_GradosTitulos'</span>, <span class="v">@step_name</span> = <span class="s">N'DIFF'</span>,
+    <span class="v">@subsystem</span> = <span class="s">N'TSQL'</span>, <span class="v">@database_name</span> = <span class="s">N'DBA_Admin'</span>,
+    <span class="v">@command</span> = <span class="s">N'EXEC dbo.usp_Backup @Tipo = ''DIFF'';'</span>;
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_jobschedule</span> <span class="v">@job_name</span> = <span class="s">N'Backup_DIFF_GradosTitulos'</span>, <span class="v">@name</span> = <span class="s">N'Lun-Sab 02:00'</span>,
+    <span class="v">@freq_type</span> = <span class="n">8</span>, <span class="v">@freq_interval</span> = <span class="n">126</span>, <span class="v">@freq_recurrence_factor</span> = <span class="n">1</span>, <span class="v">@active_start_time</span> = <span class="n">020000</span>;
+<span class="k">EXEC</span> <span class="i">dbo.sp_add_jobserver</span> <span class="v">@job_name</span> = <span class="s">N'Backup_DIFF_GradosTitulos'</span>;
+<span class="k">GO</span></pre></div><div class="tip info"><h3><em>i</em>SQL Server Express</h3><p>Express no incluye el Agente SQL. Alternativa con el Programador de tareas de Windows (ejecutar el archivo .bat y registrar las tareas desde una consola con permisos de administrador):</p></div><div class="code"><span class="lab">BAT / CMD</span><pre><span class="c">REM C:\Scripts\backup_full.bat</span>
+<span class="k">sqlcmd</span> -S . -E -Q "<span class="k">EXEC</span> <span class="i">DBA_Admin.dbo.usp_Backup</span> <span class="v">@Tipo</span>=<span class="s">'FULL'</span>"
+<span class="c">REM C:\Scripts\backup_diff.bat</span>
+<span class="k">sqlcmd</span> -S . -E -Q "<span class="k">EXEC</span> <span class="i">DBA_Admin.dbo.usp_Backup</span> <span class="v">@Tipo</span>=<span class="s">'DIFF'</span>"
+<span class="k">schtasks</span> /<span class="k">Create</span> /SC WEEKLY /D SUN /ST <span class="n">02</span>:<span class="n">00</span> /TN "Backup_FULL_GradosTitulos" ^
+    /TR "C:\Scripts\<span class="i">backup_full.bat</span>"
+<span class="k">schtasks</span> /<span class="k">Create</span> /SC WEEKLY /D MON,TUE,WED,THU,FRI,SAT /ST <span class="n">02</span>:<span class="n">00</span> ^
+    /TN "Backup_DIFF_GradosTitulos" /TR "C:\Scripts\<span class="i">backup_diff.bat</span>"</pre></div></div></section><section class="panel" id="e5"><div class="keep"><div class="panel-head"><span class="rank">5</span><h2>Procedimientos de verificación</h2><span class="tag">T-SQL</span></div><div class="panel-body pbf"><p><code>usp_VerificarBackups</code> revisa los respaldos de los últimos 8 días registrados en msdb y clasifica cada archivo: <b>FALTA ARCHIVO</b> (no existe en disco), <b>DANADO</b> (is_damaged), <b>SIN CHECKSUM</b> o <b>OK</b>. Así se detectan respaldos incompletos, inexistentes o que no cumplen la política.</p></div></div><div class="panel-body pbr"><div class="code long"><span class="lab">T-SQL</span><pre><span class="k">USE</span> DBA_Admin;
+<span class="k">GO</span>
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">ALTER</span> <span class="k">PROCEDURE</span> <span class="i">dbo.usp_VerificarBackups</span> <span class="v">@Base</span> <span class="k">SYSNAME</span> = <span class="s">'GradosTitulos'</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+    <span class="k">SET</span> <span class="k">NOCOUNT</span> <span class="k">ON</span>;
+    <span class="k">CREATE</span> <span class="k">TABLE</span> #b (Archivo <span class="k">NVARCHAR</span>(<span class="n">400</span>), Tipo <span class="k">CHAR</span>(<span class="n">1</span>), Fin <span class="k">DATETIME</span>,
+                     Danado <span class="k">BIT</span>, TieneChecksum <span class="k">BIT</span>, Existe <span class="k">INT</span> <span class="k">DEFAULT</span> <span class="n">0</span>);
+    <span class="k">INSERT</span> #b (Archivo, Tipo, Fin, Danado, TieneChecksum)
+    <span class="k">SELECT</span> <span class="i">m.physical_device_name</span>, <span class="i">b.type</span>, <span class="i">b.backup_finish_date</span>, <span class="i">b.is_damaged</span>, <span class="i">b.has_backup_checksums</span>
+    <span class="k">FROM</span> <span class="i">msdb.dbo.backupset</span> b
+    <span class="k">INNER</span> <span class="k">JOIN</span> <span class="i">msdb.dbo.backupmediafamily</span> m <span class="k">ON</span> <span class="i">b.media_set_id</span> = <span class="i">m.media_set_id</span>
+    <span class="k">WHERE</span> <span class="i">b.database_name</span> = <span class="v">@Base</span> <span class="k">AND</span> <span class="i">b.backup_finish_date</span> &gt;= <span class="k">DATEADD</span>(DAY, -<span class="n">8</span>, <span class="k">GETDATE</span>());
+    <span class="k">DECLARE</span> <span class="v">@a</span> <span class="k">NVARCHAR</span>(<span class="n">400</span>), <span class="v">@e</span> <span class="k">INT</span>;
+    <span class="k">DECLARE</span> c <span class="k">CURSOR</span> <span class="k">FOR</span> <span class="k">SELECT</span> Archivo <span class="k">FROM</span> #b;
+    <span class="k">OPEN</span> c; <span class="k">FETCH</span> <span class="k">NEXT</span> <span class="k">FROM</span> c <span class="k">INTO</span> <span class="v">@a</span>;
+    <span class="k">WHILE</span> @<span class="v">@FETCH_STATUS</span> = <span class="n">0</span>
+    <span class="k">BEGIN</span>
+        <span class="k">EXEC</span> <span class="i">master.dbo.xp_fileexist</span> <span class="v">@a</span>, <span class="v">@e</span> <span class="k">OUTPUT</span>;
+        <span class="k">UPDATE</span> #b <span class="k">SET</span> Existe = <span class="v">@e</span> <span class="k">WHERE</span> Archivo = <span class="v">@a</span>;
+        <span class="k">FETCH</span> <span class="k">NEXT</span> <span class="k">FROM</span> c <span class="k">INTO</span> <span class="v">@a</span>;
+    <span class="k">END</span>
+    <span class="k">CLOSE</span> c; <span class="k">DEALLOCATE</span> c;
+    <span class="k">SELECT</span> Archivo, Tipo, Fin,
+           <span class="k">CASE</span> <span class="k">WHEN</span> Existe = <span class="n">0</span> <span class="k">THEN</span> <span class="s">'FALTA ARCHIVO'</span> <span class="k">WHEN</span> Danado = <span class="n">1</span> <span class="k">THEN</span> <span class="s">'DANADO'</span>
+                <span class="k">WHEN</span> TieneChecksum = <span class="n">0</span> <span class="k">THEN</span> <span class="s">'SIN CHECKSUM'</span> <span class="k">ELSE</span> <span class="s">'OK'</span> <span class="k">END</span> <span class="k">AS</span> Estado
+    <span class="k">FROM</span> #b <span class="k">ORDER</span> <span class="k">BY</span> Fin <span class="k">DESC</span>;
+<span class="k">END</span>;
+<span class="k">GO</span>
+<span class="k">EXEC</span> <span class="i">dbo.usp_VerificarBackups</span>;</pre></div></div></section><section class="panel" id="e6"><div class="keep"><div class="panel-head"><span class="rank">6</span><h2>Procedimiento de mantenimiento y retención</h2><span class="tag">T-SQL</span></div><div class="panel-body pbf"><p><code>usp_Retencion</code> elimina los archivos más antiguos que 35 días (completos) y 14 días (diferenciales). Antes de borrar comprueba que exista un completo vigente; si no existe, omite la limpieza y lo registra, de modo que nunca se queda la base sin una cadena de recuperación.</p></div></div><div class="panel-body pbr"><div class="code"><span class="lab">T-SQL</span><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">ALTER</span> <span class="k">PROCEDURE</span> <span class="i">dbo.usp_Retencion</span> <span class="v">@DiasFull</span> <span class="k">INT</span> = <span class="n">35</span>, <span class="v">@DiasDiff</span> <span class="k">INT</span> = <span class="n">14</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+    <span class="k">SET</span> <span class="k">NOCOUNT</span> <span class="k">ON</span>;
+    <span class="k">DECLARE</span> <span class="v">@cFull</span> <span class="k">DATETIME</span> = <span class="k">DATEADD</span>(DAY, -<span class="v">@DiasFull</span>, <span class="k">GETDATE</span>());
+    <span class="k">DECLARE</span> <span class="v">@cDiff</span> <span class="k">DATETIME</span> = <span class="k">DATEADD</span>(DAY, -<span class="v">@DiasDiff</span>, <span class="k">GETDATE</span>());
+    <span class="c">-- Seguridad: no limpiar si no existe un completo vigente</span>
+    <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> (<span class="k">SELECT</span> <span class="n">1</span> <span class="k">FROM</span> <span class="i">msdb.dbo.backupset</span>
+                   <span class="k">WHERE</span> database_name = <span class="s">'GradosTitulos'</span> <span class="k">AND</span> type = <span class="s">'D'</span>
+                     <span class="k">AND</span> backup_finish_date &gt;= <span class="v">@cDiff</span>)
+    <span class="k">BEGIN</span>
+        <span class="k">INSERT</span> <span class="i">dbo.BitacoraBackup</span> (BaseDatos, Tipo, Resultado, Mensaje)
+            <span class="k">VALUES</span> (<span class="s">'GradosTitulos'</span>, <span class="s">'RETENCION'</span>, <span class="s">'OMITIDO'</span>, <span class="s">N'No hay completo vigente'</span>);
+        <span class="k">RETURN</span>;
+    <span class="k">END</span>
+    <span class="k">EXEC</span> <span class="i">master.dbo.xp_delete_file</span> <span class="n">0</span>, <span class="s">N'C:\Backups\GradosTitulos\DIFF'</span>, <span class="s">N'bak'</span>, <span class="v">@cDiff</span>, <span class="n">0</span>;
+    <span class="k">EXEC</span> <span class="i">master.dbo.xp_delete_file</span> <span class="n">0</span>, <span class="s">N'C:\Backups\GradosTitulos\FULL'</span>, <span class="s">N'bak'</span>, <span class="v">@cFull</span>, <span class="n">0</span>;
+    <span class="k">INSERT</span> <span class="i">dbo.BitacoraBackup</span> (BaseDatos, Tipo, Resultado)
+        <span class="k">VALUES</span> (<span class="s">'GradosTitulos'</span>, <span class="s">'RETENCION'</span>, <span class="s">'OK'</span>);
+<span class="k">END</span>;
+<span class="k">GO</span>
+<span class="k">EXEC</span> <span class="i">dbo.usp_Retencion</span> <span class="v">@DiasFull</span> = <span class="n">35</span>, <span class="v">@DiasDiff</span> = <span class="n">14</span>;</pre></div><h3 class="sub">Retención de la propia bitácora (90 días)</h3><div class="code"><span class="lab">T-SQL</span><pre><span class="k">DELETE</span> <span class="k">FROM</span> <span class="i">DBA_Admin.dbo.BitacoraBackup</span> <span class="k">WHERE</span> Fecha &lt; <span class="k">DATEADD</span>(DAY, -<span class="n">90</span>, <span class="k">SYSDATETIME</span>());</pre></div><div class="tip ok"><h3><em>✔</em>Cómo demostrar la retención sin borrar respaldos reales</h3><p>Con archivos recién creados, usp_Retencion no elimina nada (ninguno supera 35 ni 14 días). Para tener un «antes y después» seguro: copia un .bak a una carpeta de prueba (por ejemplo <code>C:\Backups\Lab\Retencion</code>), cámbiale la fecha de modificación con PowerShell a hace 20 días y borra con xp_delete_file solo en esa carpeta usando 14 días como límite. Así se ve que el archivo vencido desaparece y el reciente se conserva.</p></div><div class="code"><span class="lab">POWERSHELL + SQL</span><pre>(<span class="k">Get-Item</span> "C:\Backups\Lab\Retencion\<span class="i">viejo.bak</span>").LastWriteTime = (Get-Date).AddDays(-<span class="n">20</span>)
+<span class="k">DECLARE</span> <span class="v">@c</span> <span class="k">DATETIME</span> = <span class="k">DATEADD</span>(DAY, -<span class="n">14</span>, <span class="k">GETDATE</span>());
+<span class="k">EXEC</span> <span class="i">master.dbo.xp_delete_file</span> <span class="n">0</span>, <span class="s">N'C:\Backups\Lab\Retencion'</span>, <span class="s">N'bak'</span>, <span class="v">@c</span>, <span class="n">0</span>;
+<span class="k">EXEC</span> <span class="i">master.sys.xp_dirtree</span> <span class="s">N'C:\Backups\Lab\Retencion'</span>, <span class="n">1</span>, <span class="n">1</span>;</pre></div></div></section><section class="panel" id="e7"><div class="keep"><div class="panel-head"><span class="rank">7</span><h2>Simulación de fallos y detección</h2><span class="tag">ESCENARIO 3</span></div><div class="panel-body pbf"><div class="tip danger"><h3><em>✖</em>Cuidado</h3><p>Daña solo una COPIA del archivo, nunca el respaldo original.</p></div></div></div><div class="panel-body pbr"><div class="code"><span class="lab">T-SQL</span><pre><span class="c">-- Fallo 1: base inexistente (debe quedar ERROR en la bitácora)</span>
+<span class="k">EXEC</span> <span class="i">DBA_Admin.dbo.usp_Backup</span> <span class="v">@Base</span> = <span class="s">'BaseInexistente'</span>, <span class="v">@Tipo</span> = <span class="s">'FULL'</span>;
+<span class="k">SELECT</span> <span class="k">TOP</span> (<span class="n">3</span>) * <span class="k">FROM</span> <span class="i">DBA_Admin.dbo.BitacoraBackup</span> <span class="k">ORDER</span> <span class="k">BY</span> Id <span class="k">DESC</span>;
+<span class="k">GO</span>
+<span class="c">-- Fallo 2: archivo dañado. Copia un .bak, trunca la COPIA y verifica:</span>
+<span class="k">RESTORE</span> <span class="k">VERIFYONLY</span> <span class="k">FROM</span> <span class="k">DISK</span> = <span class="s">N'C:\Backups\Lab\copia_danada.bak'</span> <span class="k">WITH</span> <span class="k">CHECKSUM</span>;</pre></div><p>Para preparar la copia dañada (PowerShell): se copia un respaldo a la carpeta Lab y se recorta el archivo a la mitad.</p><div class="code"><span class="lab">POWERSHELL</span><pre><span class="k">Copy-Item</span> "C:\Backups\GradosTitulos\<span class="k">FULL</span>\<span class="i">GradosTitulos_FULL_AAAAMMDD_HHMM.bak</span>" `
+          "C:\Backups\Lab\<span class="i">copia_danada.bak</span>"
+$f = [<span class="i">System.IO.File</span>]::<span class="k">Open</span>("C:\Backups\Lab\<span class="i">copia_danada.bak</span>",<span class="s">'Open'</span>,<span class="s">'ReadWrite'</span>)
+$<span class="i">f.SetLength</span>([int64]($<span class="i">f.Length</span> / <span class="n">2</span>)); $<span class="i">f.Close</span>()</pre></div><p>La ejecución de <code>usp_Backup</code> con una base inexistente falla; el bloque CATCH guarda el error en la bitácora y lo relanza. El <code>RESTORE VERIFYONLY</code> sobre el archivo recortado también falla, lo que demuestra que un respaldo incompleto se detecta antes de necesitarlo.</p></div></section><section class="panel" id="e8"><div class="keep"><div class="panel-head"><span class="rank">8</span><h2>Restauración en entorno de prueba y verificación</h2><span class="tag">T-SQL</span></div><div class="panel-body pbf"><div class="code"><span class="lab">T-SQL</span><pre><span class="c">-- Obtener los nombres lógicos para WITH MOVE</span>
+<span class="k">RESTORE</span> <span class="k">FILELISTONLY</span>
+<span class="k">FROM</span> <span class="k">DISK</span> = <span class="s">N'C:\Backups\GradosTitulos\FULL\GradosTitulos_FULL_AAAAMMDD_HHMM.bak'</span>;
+<span class="k">GO</span>
+<span class="k">USE</span> master;
+<span class="k">GO</span>
+<span class="c">-- 1) Completo: la base queda en restauración</span>
+<span class="k">RESTORE</span> <span class="k">DATABASE</span> GradosTitulos_Lab
+<span class="k">FROM</span> <span class="k">DISK</span> = <span class="s">N'C:\Backups\GradosTitulos\FULL\GradosTitulos_FULL_AAAAMMDD_HHMM.bak'</span>
+<span class="k">WITH</span> <span class="k">MOVE</span> <span class="s">N'&lt;LogicalNameDatos&gt;'</span> <span class="k">TO</span> <span class="s">N'C:\Backups\Lab\GradosTitulos_Lab.mdf'</span>,
+     <span class="k">MOVE</span> <span class="s">N'&lt;LogicalNameLog&gt;'</span>   <span class="k">TO</span> <span class="s">N'C:\Backups\Lab\GradosTitulos_Lab_log.ldf'</span>,
+     <span class="k">NORECOVERY</span>, <span class="k">REPLACE</span>, <span class="k">STATS</span> = <span class="n">10</span>;
+<span class="c">-- 2) Diferencial: finaliza la secuencia</span>
+<span class="k">RESTORE</span> <span class="k">DATABASE</span> GradosTitulos_Lab
+<span class="k">FROM</span> <span class="k">DISK</span> = <span class="s">N'C:\Backups\GradosTitulos\DIFF\GradosTitulos_DIFF_AAAAMMDD_HHMM.bak'</span>
+<span class="k">WITH</span> <span class="k">RECOVERY</span>, <span class="k">STATS</span> = <span class="n">10</span>;
+<span class="k">GO</span></pre></div></div></div><div class="panel-body pbr"><div class="evgroup"><div class="evhead"><span class="coinbadge"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" fill="#ffe600" stroke="#000" stroke-width="2.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="#a34a00" stroke-width="2"/></svg>EVIDENCIA 10</span><span class="evtitle">Pérdida simulada de datos, restauración FULL + DIFF y base en línea</span></div><div class="frames"><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_10.jpg" loading="lazy" alt=""></div></div><figcaption>Conteo de Tramite.TrabajoInvestigacion antes de la pérdida (120 registros)</figcaption></figure><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_11.jpg" loading="lazy" alt=""></div></div><figcaption>Eliminación de datos: DELETE sobre Tramite.Pago (IdPago = 25)</figcaption></figure><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_12.jpg" loading="lazy" alt=""></div></div><figcaption>Modificación incorrecta: UPDATE sobre Tramite.Pago (IdPago = 26)</figcaption></figure><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_13.jpg" loading="lazy" alt=""></div></div><figcaption>Restauración FULL (NORECOVERY) + DIFF (RECOVERY) completada correctamente</figcaption></figure><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_14.jpg" loading="lazy" alt=""></div></div><figcaption>Base de datos GradosTitulos en estado ONLINE tras la restauración</figcaption></figure></div></div><div class="code"><span class="lab">T-SQL</span><pre><span class="c">-- Comparar la base original con la restaurada</span>
+<span class="k">SELECT</span> <span class="s">'Tramite.Tramite'</span> <span class="k">AS</span> Tabla,
+       (<span class="k">SELECT</span> <span class="k">COUNT</span>(*) <span class="k">FROM</span> <span class="i">GradosTitulos.Tramite.Tramite</span>) <span class="k">AS</span> Original,
+       (<span class="k">SELECT</span> <span class="k">COUNT</span>(*) <span class="k">FROM</span> <span class="i">GradosTitulos_Lab.Tramite.Tramite</span>) <span class="k">AS</span> Restaurada
+<span class="k">UNION</span> <span class="k">ALL</span>
+<span class="k">SELECT</span> <span class="s">'Tramite.Pago'</span>,
+       (<span class="k">SELECT</span> <span class="k">COUNT</span>(*) <span class="k">FROM</span> <span class="i">GradosTitulos.Tramite.Pago</span>),
+       (<span class="k">SELECT</span> <span class="k">COUNT</span>(*) <span class="k">FROM</span> <span class="i">GradosTitulos_Lab.Tramite.Pago</span>)
+<span class="k">UNION</span> <span class="k">ALL</span>
+<span class="k">SELECT</span> <span class="s">'Tramite.TrabajoInvestigacion'</span>,
+       (<span class="k">SELECT</span> <span class="k">COUNT</span>(*) <span class="k">FROM</span> <span class="i">GradosTitulos.Tramite.TrabajoInvestigacion</span>),
+       (<span class="k">SELECT</span> <span class="k">COUNT</span>(*) <span class="k">FROM</span> <span class="i">GradosTitulos_Lab.Tramite.TrabajoInvestigacion</span>);
+<span class="k">GO</span></pre></div><div class="evgroup"><div class="evhead"><span class="coinbadge"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" fill="#ffe600" stroke="#000" stroke-width="2.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="#a34a00" stroke-width="2"/></svg>EVIDENCIA 11</span><span class="evtitle">Comparación de datos tras restaurar y verificación de integridad</span></div><div class="frames"><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_15.jpg" loading="lazy" alt=""></div></div><figcaption>Conteo de Tramite.Pago después de la restauración (85 registros)</figcaption></figure><figure class="frame"><div class="fr-outer"><div class="fr-inner"><img src="assets/imagen_16.jpg" loading="lazy" alt=""></div></div><figcaption>Verificación de integridad: DBCC CHECKDB sin errores ni advertencias</figcaption></figure></div></div><p>Para demostrar el funcionamiento de las tareas programadas puedes ejecutar un trabajo a demanda y consultar su historial:</p><div class="code"><span class="lab">T-SQL</span><pre><span class="k">EXEC</span> <span class="i">msdb.dbo.sp_start_job</span> <span class="s">N'Backup_FULL_GradosTitulos'</span>;
+<span class="k">EXEC</span> <span class="i">msdb.dbo.sp_help_jobhistory</span> <span class="v">@job_name</span> = <span class="s">N'Backup_FULL_GradosTitulos'</span>, <span class="v">@mode</span> = <span class="s">'FULL'</span>;</pre></div><h3 class="sub">10 Tabla de resultados<small>completa con tus datos</small></h3><div class="tbl"><table><colgroup><col style="width:40%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup><thead><tr><th>Tabla</th><th>Original</th><th>Restaurada</th><th>¿Coincide?</th></tr></thead><tbody><tr><td><b>Tramite.Tramite</b></td><td></td><td></td><td></td></tr><tr><td><b>Tramite.Pago</b></td><td></td><td>85</td><td></td></tr><tr><td><b>Tramite.TrabajoInvestigacion</b></td><td>120</td><td></td><td></td></tr></tbody></table></div><h3 class="sub">11 Dificultades encontradas<small>documenta cada problema y su solución</small></h3><div class="tbl"><table><colgroup><col style="width:8%"><col style="width:46%"><col style="width:46%"></colgroup><thead><tr><th>N.º</th><th>Dificultad</th><th>Solución aplicada</th></tr></thead><tbody><tr><td>1</td><td>Simular la pérdida de datos sin afectar los respaldos: un DELETE y un UPDATE incorrecto sobre Tramite.Pago.</td><td>Se tomaron antes el backup FULL y el DIFF, y se registró el conteo previo (120 trabajos) para poder comparar después.</td></tr><tr><td>2</td><td>Restaurar el diferencial: la base debe quedar en restauración después del completo.</td><td>Se restauró el FULL con NORECOVERY y luego el DIFF con RECOVERY; la restauración terminó correctamente.</td></tr><tr><td>3</td><td>Confirmar que la base quedó utilizable y sin daños tras la restauración.</td><td>Se consultó sys.databases (estado ONLINE) y se ejecutó DBCC CHECKDB: 0 errores y 0 advertencias.</td></tr></tbody></table></div></div></section><section class="panel" id="e9"><div class="keep"><div class="panel-head"><span class="rank">9</span><h2>Infografía técnica del sistema automatizado</h2><span class="tag">INFOGRAFÍA</span></div><div class="panel-body pbf"><h3 class="sub">08 Ciclo semanal automatizado</h3><div class="cards" style="grid-template-columns:repeat(3,1fr)"><div class="card" style="--cc:#19f0ff"><h4>Domingo 02:00</h4><ul><li>Backup COMPLETO.</li><li>Verificación con CHECKSUM.</li><li>Registro en la bitácora.</li></ul></div><div class="card" style="--cc:#39ff6a"><h4>Lunes a sábado 02:00</h4><ul><li>Backup DIFERENCIAL.</li><li>Verificación automática.</li><li>Registro en la bitácora.</li></ul></div><div class="card" style="--cc:#ffe600"><h4>Mantenimiento</h4><ul><li>usp_VerificarBackups.</li><li>usp_Retencion.</li><li>Alerta ante ERROR.</li></ul></div></div></div></div><div class="panel-body pbr"><h3 class="sub">09 Retención de copias</h3><div class="tbl"><table><colgroup><col style="width:25%"><col style="width:30%"><col style="width:45%"></colgroup><thead><tr><th>Tipo</th><th>Se conserva</th><th>Se elimina</th></tr></thead><tbody><tr><td><b>Completo</b></td><td>35 días</td><td>Más antiguos que 35 días</td></tr><tr><td><b>Diferencial</b></td><td>14 días</td><td>Más antiguos que 14 días</td></tr><tr><td><b>Bitácora</b></td><td>90 días</td><td>Más antiguos que 90 días</td></tr></tbody></table></div><div class="result"><h3>RESULTADO</h3><p>El administrador ya no ejecuta respaldos a mano: el sistema respalda, verifica, deja registro y limpia sin tocar las copias necesarias para recuperar.</p></div><h3 class="sub">Conclusiones</h3><ul class="concl"><li>La automatización con trabajos programados elimina la dependencia de la ejecución manual y reduce el error humano.</li><li>La bitácora centraliza el resultado de cada respaldo, y la verificación detecta archivos faltantes, dañados o sin CHECKSUM.</li><li>La retención con guarda de seguridad evita borrar el último completo o los diferenciales que aún dependen de él.</li><li>La restauración periódica en un entorno de prueba es la única forma de confirmar que los respaldos realmente sirven.</li></ul></div></section><footer class="foot">RAMOS ZAMORA MICHAEL DEIVIS · Base de Datos II · Proyecto 2 · <span>21-11-26</span></footer></body></html>
